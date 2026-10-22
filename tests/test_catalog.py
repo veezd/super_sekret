@@ -53,3 +53,20 @@ def test_every_processed_file_loads():
     for n in C.discover():
         d = C.load(n)
         assert list(d.columns) == C.NORM and d.ts.dt.tz is not None and (d.dur_h > 0).all(), n
+
+
+def test_span_and_date_overlap_for_monthly():
+    m = pd.DataFrame({"ts": pd.DatetimeIndex(["2025-02-01", "2025-03-01"]).tz_localize(C.TZ), "dur_h": [672.0, 743.0],
+                      "flag": "ok"}).pipe(C.add_calendar)
+    assert C.span(m) == (pd.Timestamp("2025-02-01").date(), pd.Timestamp("2025-03-31").date())  # DST month ends 31.03
+    f = C.filter_df(m, start=pd.Timestamp("2025-02-15").date(), end=pd.Timestamp("2025-02-20").date())
+    assert len(f) == 1 and f.ts.dt.month.iloc[0] == 2  # mid-month range keeps the overlapping month
+    d = _df(3)
+    f = C.filter_df(d, start=pd.Timestamp("2025-03-25").date(), end=pd.Timestamp("2025-03-25").date())
+    assert f.ts.dt.date.nunique() == 1 and len(f) == 2 * 96
+    assert len(C.filter_df(d, weekdays=[])) == len(d)  # empty selection = no filter
+
+
+def test_merge_options_skip_noop_partitions():
+    assert C.merge_options(_df()) == ["series", "site"]  # dataset/carrier give the same single series as site
+    assert C.merge_options(_df(meters=("A",))) == ["series"]

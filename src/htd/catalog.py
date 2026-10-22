@@ -83,21 +83,48 @@ def add_calendar(df: pd.DataFrame) -> pd.DataFrame:
                      capacity=np.asarray(capacity_fee_applies(ts)))
 
 
+def _local_bounds(df: pd.DataFrame) -> tuple[pd.Series, pd.Series]:
+    """Naive local interval start/end (wall clock, so a monthly row ends at 00:00 of the next month despite DST)."""
+    t0 = df.ts.dt.tz_localize(None)
+    return t0, t0 + pd.to_timedelta(df.dur_h, unit="h").where(df.dur_h < 24 * 27, pd.to_timedelta(t0.dt.days_in_month, unit="D"))
+
+
+def span(df: pd.DataFrame) -> tuple:
+    """(first, last) calendar day covered by df; last includes the end of the final interval (monthly -> month end)."""
+    t0, t1 = _local_bounds(df)
+    return t0.min().date(), (t1.max() - pd.Timedelta("1s")).date()
+
+
+def merge_options(df: pd.DataFrame) -> list[str]:
+    """`group` dimensions that actually merge something; options giving the same partition as an earlier one dropped."""
+    meta = df[["series", "dataset", "site", "carrier"]].drop_duplicates("series")
+    out, seen = [], set()
+    for by in ("series", "site", "dataset", "carrier"):
+        part = frozenset(meta.groupby(series_key(meta, by)).series.agg(frozenset))
+        if part not in seen:
+            out.append(by)
+            seen.add(part)
+    return out
+
+
 def filter_df(df, start=None, end=None, months=None, weekdays=None, daytype="all", hours=(0, 24),
               zones=None, capacity_only=False, flags=None) -> pd.DataFrame:
-    """Calendar filters (hour/weekday/day type/zone/capacity) only apply to sub-daily rows; months/dates to all."""
+    """Calendar filters (hour/weekday/day type/zone/capacity) only apply to sub-daily rows; months/dates to all.
+    Date range keeps every interval overlapping [start, end] (a monthly row counts if the range touches its month)."""
     m = pd.Series(True, index=df.index)
-    if start is not None:
-        m &= df.ts >= pd.Timestamp(start, tz=TZ)
-    if end is not None:
-        m &= df.ts < pd.Timestamp(end, tz=TZ) + pd.Timedelta("1D")
+    if start is not None or end is not None:
+        t0, t1 = _local_bounds(df)
+        if start is not None:
+            m &= t1 > pd.Timestamp(start)
+        if end is not None:
+            m &= t0 < pd.Timestamp(end) + pd.Timedelta("1D")
     if months:
         m &= df.month.isin(months)
     if flags is not None:
         m &= df.flag.isin(flags)
     sub = df.dur_h < 24
     c = pd.Series(True, index=df.index)
-    if weekdays is not None:
+    if weekdays:
         c &= df.weekday.isin(weekdays)
     if daytype == "workday":
         c &= df.workday

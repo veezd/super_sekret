@@ -59,7 +59,7 @@ Zaścianek 40.6 kWp. Straszny Dwór 121 modules, >200 m² → kWp estimate neede
 - [x] skeleton, docs, tariff/clean helpers + tests
 - [x] raw files → data/raw (read-only), inspect_raw.py run
 - [x] loaders + cleaning → data/processed/*.parquet, anomaly_log.csv, cross-checks (d17_heat file missing)
-- [x] dashboard: `.venv/bin/streamlit run app/dashboard.py` (any new parquet in data/processed appears automatically)
+- [x] dashboard: `.venv/bin/streamlit run app/dashboard.py` (any new parquet appears automatically; only controls applicable to current selection shown; only open tab computed)
 - [ ] fetch external: RDN, RCE, PVGIS
 - [ ] EDA: campus peak coincidence, base loads, seasonal dorm scaling
 - [ ] pick solution concept(s) + ROI

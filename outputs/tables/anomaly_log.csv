@@ -1,0 +1,70 @@
+dataset,site,meter,start,end,n,issue,action
+hala,hala,both,2025-07-04 08:15:00+02:00,2025-07-04 15:15:00+02:00,29,supply outage: both PPE ~0 (+missing rows),"flag anomaly, replaced by weekday profile"
+hala,hala,590322429402615820,2025-01-30 12:45:00+01:00,2025-01-30 13:00:00+01:00,2,"main feed <10% of 7D median, const meter alive (switching?)","kept, flag suspect"
+hala,hala,590322429402615820,2025-02-20 12:30:00+01:00,2025-02-20 12:45:00+01:00,2,"main feed <10% of 7D median, const meter alive (switching?)","kept, flag suspect"
+hala,hala,590322429402615820,2025-03-05 08:30:00+01:00,2025-03-05 08:30:00+01:00,1,"main feed <10% of 7D median, const meter alive (switching?)","kept, flag suspect"
+hala,hala,590322429402615820,2025-04-22 09:45:00+02:00,2025-04-22 10:00:00+02:00,2,"main feed <10% of 7D median, const meter alive (switching?)","kept, flag suspect"
+hala,hala,590322429402615820,2025-05-27 10:30:00+02:00,2025-05-27 10:45:00+02:00,2,"main feed <10% of 7D median, const meter alive (switching?)","kept, flag suspect"
+hala,hala,590322429402615820,2025-06-24 09:15:00+02:00,2025-06-24 09:45:00+02:00,3,"main feed <10% of 7D median, const meter alive (switching?)","kept, flag suspect"
+hala,hala,590322429402615820,2025-07-04 08:00:00+02:00,2025-07-04 08:00:00+02:00,1,"main feed <10% of 7D median, const meter alive (switching?)","kept, flag suspect"
+hala,hala,590322429402615820,2025-07-15 12:45:00+02:00,2025-07-15 12:45:00+02:00,1,"main feed <10% of 7D median, const meter alive (switching?)","kept, flag suspect"
+hala,hala,590322429402615820,2025-08-26 13:15:00+02:00,2025-08-26 13:30:00+02:00,2,"main feed <10% of 7D median, const meter alive (switching?)","kept, flag suspect"
+hala,hala,590322429402615820,2025-09-30 12:00:00+02:00,2025-09-30 12:15:00+02:00,2,"main feed <10% of 7D median, const meter alive (switching?)","kept, flag suspect"
+hala,hala,590322429402615820,2025-10-17 12:00:00+02:00,2025-10-17 12:15:00+02:00,2,"main feed <10% of 7D median, const meter alive (switching?)","kept, flag suspect"
+hala,hala,590322429402615820,2025-11-25 14:00:00+01:00,2025-11-25 14:15:00+01:00,2,"main feed <10% of 7D median, const meter alive (switching?)","kept, flag suspect"
+hala,hala,590322429402615820,2025-12-22 10:00:00+01:00,2025-12-22 10:15:00+01:00,2,"main feed <10% of 7D median, const meter alive (switching?)","kept, flag suspect"
+d17,d17,ZAS1+ZAS2,2025-02-19 15:45:01,2025-07-27 15:29:59,7,stray rows with :01/:59 s timestamps (kW only),dropped (kW merged for check)
+d17,d17,ZAS1,2025-01-01 00:00:00+01:00,2025-01-01 00:00:00+01:00,1,no counter reading before first interval,copied next interval
+d17,d17,ZAS1,2025-04-11 23:45:00+02:00,2025-04-12 00:00:00+02:00,2,counter readings missing; rate over gap = 49% of 1D median -> probable outage,meter delta spread evenly (energy kept)
+d17,d17,ZAS1,2025-05-25 19:00:00+02:00,2025-05-25 19:15:00+02:00,2,counter readings missing,meter delta spread evenly (energy kept)
+d17,d17,ZAS1,2025-07-18 05:15:00+02:00,2025-07-18 05:30:00+02:00,2,counter readings missing,meter delta spread evenly (energy kept)
+d17,d17,ZAS1,2025-08-01 08:30:00+02:00,2025-08-01 10:00:00+02:00,7,counter readings missing; rate over gap = 1% of 1D median -> probable outage,meter delta spread evenly (energy kept)
+d17,d17,ZAS2,2025-01-01 00:00:00+01:00,2025-01-01 00:00:00+01:00,1,no counter reading before first interval,copied next interval
+d17,d17,ZAS2,2025-05-22 17:00:00+02:00,2025-05-22 17:15:00+02:00,2,counter readings missing,meter delta spread evenly (energy kept)
+d17,d17,ZAS2,2025-05-25 00:00:00+02:00,2025-05-25 00:15:00+02:00,2,counter readings missing,meter delta spread evenly (energy kept)
+d17,d17,ZAS2,2025-07-28 13:15:00+02:00,2025-07-28 13:30:00+02:00,2,counter readings missing,meter delta spread evenly (energy kept)
+d17,d17,ZAS2,2025-07-29 07:15:00+02:00,2025-07-29 07:30:00+02:00,2,counter readings missing,meter delta spread evenly (energy kept)
+d17,d17,ZAS2,2025-08-01 08:30:00+02:00,2025-08-01 10:00:00+02:00,7,counter readings missing; rate over gap = 16% of 1D median -> probable outage,meter delta spread evenly (energy kept)
+basen,basen,PPE:590322429402049120,2025-10-26 03:00:00,2025-10-26 03:00:00,1,DST: 247.8 kWh = 2 h in 1 row (completeness 200%),split in half -> 2 intervals
+basen,basen,PPE:590322429402049120,2025-08-04 23:00:00+02:00,2025-08-04 23:00:00+02:00,1,"zero / extreme outlier (robust z>8, 7D)",replaced: linear interp
+ds_monthly,ds03,heat total,2023-04-01,2023-12-01,9,heat total row overlaps co/cw rows,dropped (no double count)
+ds_monthly,ds07,heat co,2023-06-01,2023-12-01,7,heat total row overlaps co/cw rows,dropped (no double count)
+ds_monthly,ds16,heat total,2023-04-01,2023-12-01,9,heat total row overlaps co/cw rows,dropped (no double count)
+ds_monthly,ds07,heat,2024-11-01,2024-12-01,2,no data while building closed,set 0
+ds_monthly,ds10,heat,2023-11-01,2024-09-01,22,no data while building closed,set 0
+ds_monthly,alfa,el total,2025-10-01,2025-10-01,1,zero reading in active building,imputed
+ds_monthly,ds10,el D,2025-10-01,2025-10-01,1,zero reading in active building,imputed
+ds_monthly,ds10,el N,2025-10-01,2025-10-01,1,zero reading in active building,imputed
+ds_monthly,ds11,el D,2025-10-01,2025-10-01,1,zero reading in active building,imputed
+ds_monthly,ds11,el N,2025-10-01,2025-10-01,1,zero reading in active building,imputed
+ds_monthly,ds13,el D,2025-10-01,2025-10-01,1,zero reading in active building,imputed
+ds_monthly,ds13,el N,2025-10-01,2025-10-01,1,zero reading in active building,imputed
+ds_monthly,ds04,el D+N,2023-09-01,2023-09-01,2,D and N identical to previous month,"kept, flag suspect"
+ds_monthly,ds14,el D+N,2024-02-01,2024-02-01,2,D and N identical to previous month,"kept, flag suspect"
+ds_monthly,ds15,el D+N,2024-02-01,2024-02-01,2,D and N identical to previous month,"kept, flag suspect"
+ds_monthly,ds16,el D+N,2024-02-01,2024-02-01,2,D and N identical to previous month,"kept, flag suspect"
+ds_monthly,ds17,el D+N,2023-08-01,2023-08-01,2,D and N identical to previous month,"kept, flag suspect"
+ds_monthly,ds17,el D+N,2024-02-01,2024-02-01,2,D and N identical to previous month,"kept, flag suspect"
+ds_monthly,ds18,el D+N,2024-02-01,2024-02-01,2,D and N identical to previous month,"kept, flag suspect"
+ds_monthly,ds19,el D+N,2024-02-01,2024-02-01,2,D and N identical to previous month,"kept, flag suspect"
+ds_monthly,"ds01,ds02,ds03,ds04,ds05,ds06,ds08,ds09,ds12,ds14,ds15,ds16,ds17,ds18,ds19",el,2025-01-01,2025-01-01,15,Jan 2025 < 60% of Feb 2025 in many DS (systematic),imputed (yoy level)
+ds_monthly,ds09,el N,2024-11,2024-11,1,"x10 typo (48880; D=8720, N share 0.39 expected)",set:4888
+ds_monthly,ds01,el D,2023-12,2023-12,1,D/N swapped (N share 0.64 vs median 0.37),swap:N
+ds_monthly,ds02,el N,2023-01,2023-01,1,N far too low (share 0.15 vs 0.37),n_share
+ds_monthly,ds03,el N,2025-10,2025-10,1,N far too low (share 0.18 vs 0.37),n_share
+ds_monthly,ds13,el D,2024-01,2024-01,1,"N=0, D holds D+N (D=2.4x Feb)",dn_split
+ds_monthly,alfa,el total,2024-07,2024-08,2,irregular reading dates: 76220 + 0,pair_avg
+ds_monthly,alfa,el total,2024-09,2024-10,2,irregular reading dates: 23660 + 71430,pair_avg
+ds_monthly,alfa,el total,2024-11,2024-12,2,irregular reading dates: 31720 + 63930,pair_avg
+ds_monthly,alfa,el total,2025-07,2025-08,2,irregular reading dates: 0 + 80930,pair_avg
+ds_monthly,ds16,heat co,2024-12,2024-12,1,"co/cw swapped (co 71, cw 188 in Dec)",swap:cw
+ds_monthly,ds05,heat cw,2024-03,2024-05,2,cw 348/331 while co empty: co+cw merged or meter state,drop
+ds_monthly,ds11,heat ct,2024-01,2024-02,2,"CT 265 GJ twice (=prev), 10x other years",drop
+ds_monthly,ds14,heat co,2023-12,2023-12,1,partial month before meter replacement (81 vs ~500),drop
+ds_monthly,ds14,heat cw,2023-12,2023-12,1,partial month before meter replacement (87 vs ~220),drop
+ds_monthly,ds11,heat cw,2025-04,2025-04,1,cw 26 vs ~60-75 neighbours,suspect
+ds_monthly,ds12,heat cw,2023-08,2023-08,1,cw 4 vs 26/49 neighbours,suspect
+ds_monthly,ds17,heat cw,2023-07,2023-07,1,cw 4 vs 77/34 neighbours,suspect
+ds_monthly,ds14,heat co+cw,2023-01,2023-11,11,co/cw split implausible (cw > co in winter),"kept, flag suspect"
+ds_monthly,*,*,,,23,"empty / text cells (meter change notes, missing readings)",imputed: peer-seasonal / yoy level
+hala_kw,hala,615820,2025-07-15 12:45:00+02:00,2025-07-15 12:45:00+02:00,1,negative power -9.3 kW (kWh file ok: 2.4 kW),kW file not used

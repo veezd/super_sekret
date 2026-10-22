@@ -1,0 +1,10 @@
+pandas>=2.1
+numpy
+pyarrow
+xlrd>=2.0
+openpyxl
+matplotlib
+seaborn
+plotly
+pytest
+streamlit>=1.50
